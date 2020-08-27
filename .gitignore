@@ -1,0 +1,9 @@
+
+node_modules/
+
+# webpack
+build/
+
+# npm and yarn 
+*.lock
+package-lock.json
