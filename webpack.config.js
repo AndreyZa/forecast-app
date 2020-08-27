@@ -1,6 +1,7 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssWebpackPlugin = require('mini-css-extract-plugin');
+const DotEnv = require('dotenv-webpack');
 
 // config for dev and prod for same webpack properties
 module.exports = {
@@ -24,5 +25,6 @@ module.exports = {
   plugins: [
     new HTMLWebpackPlugin({ template: 'src/index.html', filename: 'index.html', minify: true }),
     new MiniCssWebpackPlugin(),
+    new DotEnv(),
   ],
 };

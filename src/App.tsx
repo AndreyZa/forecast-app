@@ -1,6 +1,13 @@
 import React from 'react';
-const a = 1;
+import { Provider } from 'react-redux';
+import { store } from './store';
 
-const App: React.FC = () => <h1>Hello, World!!!</h1>;
+const App: React.FC = () => {
+  return (
+    <Provider store={store}>
+      <h1>Hello, World!!!</h1>
+    </Provider>
+  );
+};
 
 export default App;
