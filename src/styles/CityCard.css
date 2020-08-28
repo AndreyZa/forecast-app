@@ -1,0 +1,23 @@
+.city-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.city-card h2 {
+  align-items: center;
+}
+
+.city-card-feels-like {
+  color: gray;
+  font-style: italic;
+  font-size: 15px;
+}
+
+.city-card-table {
+  color: #1c1c1c;
+}
+
+.city-card-table td {
+  padding: 0 7px;
+}

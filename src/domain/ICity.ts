@@ -53,4 +53,9 @@ export interface ICity {
   timezone: number;
   visibility: number;
   weather: Weather[];
+  wind: {
+    speed: number;
+    deg: number;
+    gust: number;
+  };
 }
