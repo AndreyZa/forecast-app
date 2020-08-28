@@ -7,7 +7,6 @@ import { CitiesActions } from '../store/CitiesActions';
 import '../styles/Header.css';
 
 export interface IHeaderProps {
-  inCity: boolean;
   citiesInStore: string[];
   lastEntered: string[];
   fetch: (name: string) => AnyAction;
@@ -15,7 +14,6 @@ export interface IHeaderProps {
 }
 
 const Header: React.FC<IHeaderProps> = ({
-  inCity,
   citiesInStore,
   fetch,
   lastEntered,
@@ -30,11 +28,6 @@ const Header: React.FC<IHeaderProps> = ({
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     setCity(event.target.innerText);
-
-  if (inCity) {
-    // if we in city route we need hide Header
-    return <div></div>;
-  }
 
   const onSearch = (value: string) => {
     if (value.trim() && value.length > 2) {
@@ -90,7 +83,6 @@ const mapStateToProps = (
 ) => ({
   ...ownProps,
   citiesInStore: Object.keys(state.citiesWeatherToday.cities),
-  inCity: state.citiesWeatherToday.inCity,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

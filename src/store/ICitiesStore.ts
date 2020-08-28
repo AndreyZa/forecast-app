@@ -6,10 +6,8 @@ export type Cities = {
 
 export interface ICitiesTodayWeatherStore {
   cities: Cities;
-  inCity: boolean;
 }
 
 export const initialData = {
   cities: {},
-  inCity: false,
 };

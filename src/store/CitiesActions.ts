@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import { ADD_CITY, CHANGE_INCITY, ICitiesAction } from './actions';
+import { ADD_CITY, ICitiesAction } from './actions';
 import { ICity } from '../domain/ICity';
 import { Server } from '../server';
 
@@ -22,13 +22,6 @@ export class CitiesActions {
         name,
         city,
       },
-    };
-  }
-
-  public static changeInCity(): ICitiesAction {
-    return {
-      type: CHANGE_INCITY,
-      payload: {},
     };
   }
 }

@@ -1,9 +1,8 @@
 import { ICity } from '../domain/ICity';
 
 export const ADD_CITY = 'ADD_CITY';
-export const CHANGE_INCITY = 'CHANGE_INCITY';
 
-export type ActionType = 'ADD_CITY' | 'CHANGE_INCITY';
+export type ActionType = 'ADD_CITY';
 
 type AddPayload = {
   name: string;

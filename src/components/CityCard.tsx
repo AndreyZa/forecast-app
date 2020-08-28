@@ -3,16 +3,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ICity } from '../domain/ICity';
 import { IApplicationStore } from '../store';
-import { ICitiesAction } from '../store/actions';
-import { CitiesActions } from '../store/CitiesActions';
 import '../styles/CityCard.css';
 
 export interface ICityCardProps {
   city: ICity;
-  changeInCity: () => ICitiesAction;
 }
 
-const CityCard: React.FC<ICityCardProps> = ({ city, changeInCity }) => {
+const CityCard: React.FC<ICityCardProps> = ({ city }) => {
   return city ? (
     <div className="city-card">
       <h2>
@@ -52,9 +49,7 @@ const CityCard: React.FC<ICityCardProps> = ({ city, changeInCity }) => {
           </tr>
         </tbody>
       </table>
-      <Link to={`/city/${city.name}`} onClick={changeInCity}>
-        {city.name}
-      </Link>
+      <Link to={`/city/${city.name}`}>{city.name}</Link>
     </div>
   ) : (
     <div></div>
@@ -70,8 +65,6 @@ const mapStateToProps = (
   city: state.citiesWeatherToday.cities[ownProps.nameCity],
 });
 
-const mapDispatchToProps = {
-  changeInCity: CitiesActions.changeInCity,
-};
+const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CityCard);
