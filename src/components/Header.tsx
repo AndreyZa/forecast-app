@@ -41,6 +41,7 @@ const Header: React.FC<IHeaderProps> = ({
     changeCity(event.target.innerText);
 
   if (inCity) {
+    // if we in city route we need hide Header
     return <div></div>;
   }
 
