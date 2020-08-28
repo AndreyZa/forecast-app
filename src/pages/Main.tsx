@@ -8,7 +8,7 @@ export interface IMain {
 
 // indicates main page for user
 export const Main: React.FC<IMain> = (props: IMain) => (
-  <div>
+  <div className="page">
     <span>Main</span>
     <Header {...props} />
   </div>

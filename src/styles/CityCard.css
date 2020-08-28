@@ -1,7 +1,9 @@
+.city-card-container {
+  margin-top: 10px;
+}
+
 .city-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background-color: #cebfbf !important;
 }
 
 .city-card h2 {

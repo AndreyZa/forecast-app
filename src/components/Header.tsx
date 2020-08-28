@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AnyAction, Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { Button, ButtonGroup, Input, InputGroup } from 'reactstrap';
 import CityCard from '../components/CityCard';
 import { IApplicationStore } from '../store';
 import { CitiesActions } from '../store/CitiesActions';
@@ -36,7 +37,9 @@ const Header: React.FC<IHeaderProps> = ({
       }
     }
     setCity(value);
-    changeLastEntered(value);
+    if (value.trim()) {
+      changeLastEntered(value);
+    }
   };
 
   const onSubmitSearch = (event: React.FormEvent) => {
@@ -51,27 +54,22 @@ const Header: React.FC<IHeaderProps> = ({
   return (
     <div>
       <form onSubmit={onSubmitSearch}>
-        <input
-          className="header-input"
-          type="text"
-          name="city"
-          value={city}
-          autoComplete="off"
-          onChange={onChange}
-        />
-        <button type="submit">Search</button>
+        <InputGroup>
+          <Input type="text" name="city" value={city} autoComplete="off" onChange={onChange} />
+          <Button color="primary" type="submit">
+            Search
+          </Button>
+        </InputGroup>
       </form>
-      {lastEntered.length === 0
-        ? null
-        : city.trim() && (
-            <ul className="header-last-entered-list">
-              {lastEntered.map((lastEnter: string, index: number) => (
-                <li key={index + lastEnter} onClick={listItemClick}>
-                  {lastEnter}
-                </li>
-              ))}
-            </ul>
-          )}
+      <div className="header-last-entered-list">
+        <ButtonGroup>
+          {lastEntered.map((lastEnter: string, index: number) => (
+            <Button key={index + lastEnter} onClick={listItemClick}>
+              {lastEnter}
+            </Button>
+          ))}
+        </ButtonGroup>
+      </div>
       <CityCard nameCity={city} />
     </div>
   );

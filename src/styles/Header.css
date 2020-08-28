@@ -14,8 +14,14 @@
 
 .header-last-entered-list {
   margin-top: 10px;
+}
+
+.city-card-img {
   display: flex;
-  list-style: none;
-  justify-content: space-around;
-  padding: 0px;
+  justify-content: center;
+}
+
+.city-card-img img {
+  width: min-content;
+  height: min-content;
 }

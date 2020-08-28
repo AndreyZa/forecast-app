@@ -9,7 +9,7 @@ export const City: React.FC = () => {
   const onBack = () => history.goBack();
 
   return (
-    <div>
+    <div className="page">
       <button onClick={onBack}>Back</button>
       City: {cityName} <CityContainer nameCity={cityName} />
     </div>
