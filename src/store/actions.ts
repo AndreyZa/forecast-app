@@ -5,7 +5,12 @@ export const CHANGE_INCITY = 'CHANGE_INCITY';
 
 export type ActionType = 'ADD_CITY' | 'CHANGE_INCITY';
 
+type AddPayload = {
+  name: string;
+  city: ICity;
+};
+
 export interface ICitiesAction {
   type: ActionType;
-  payload: ICity | Record<string, string | number>;
+  payload: AddPayload | Record<string, string | number>;
 }

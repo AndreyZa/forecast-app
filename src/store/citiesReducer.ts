@@ -11,7 +11,7 @@ export const citiesReducer = (
         ...state,
         cities: {
           ...state.cities,
-          [action.payload.name]: action.payload,
+          [action.payload.name]: action.payload.city,
         },
       };
     case CHANGE_INCITY:

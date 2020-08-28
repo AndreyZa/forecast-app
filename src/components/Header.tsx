@@ -23,39 +23,52 @@ const Header: React.FC<IHeaderProps> = ({
 }) => {
   const [city, setCity] = useState('');
 
-  const changeCity = (value: string) => {
-    setCity(value);
-    if (value.trim() && value.length > 2) {
-      if (!citiesInStore.find((cityFromStore: string) => value === cityFromStore)) {
-        fetch(value);
-      }
-    }
-  };
-
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => changeCity(event.target.value);
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => setCity(event.target.value);
   const listItemClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
     // here we need properties that
     // does not exist in React type EventTarget, but exist in native event
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    changeCity(event.target.innerText);
+    setCity(event.target.innerText);
 
   if (inCity) {
     // if we in city route we need hide Header
     return <div></div>;
   }
 
+  const onSearch = (value: string) => {
+    if (value.trim() && value.length > 2) {
+      if (!citiesInStore.find((cityFromStore: string) => value === cityFromStore)) {
+        fetch(value);
+      }
+    }
+    setCity(value);
+    changeLastEntered(value);
+  };
+
+  const onSubmitSearch = (event: React.FormEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    // React Event type does not know about form property `elements`
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    onSearch(event.target.elements.city.value);
+  };
+
   return (
     <div>
-      <input
-        className="header-input"
-        type="text"
-        name="city"
-        value={city}
-        autoComplete="off"
-        onChange={onChange}
-      />
-      {lastEntered.length !== 5
+      <form onSubmit={onSubmitSearch}>
+        <input
+          className="header-input"
+          type="text"
+          name="city"
+          value={city}
+          autoComplete="off"
+          onChange={onChange}
+        />
+        <button type="submit">Search</button>
+      </form>
+      {lastEntered.length === 0
         ? null
         : city.trim() && (
             <ul className="header-last-entered-list">
@@ -66,7 +79,7 @@ const Header: React.FC<IHeaderProps> = ({
               ))}
             </ul>
           )}
-      <CityCard nameCity={city} lastEntered={lastEntered} changeLastEntered={changeLastEntered} />
+      <CityCard nameCity={city} />
     </div>
   );
 };

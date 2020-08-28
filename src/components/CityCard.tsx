@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ICity } from '../domain/ICity';
@@ -8,25 +8,11 @@ import { CitiesActions } from '../store/CitiesActions';
 import '../styles/CityCard.css';
 
 export interface ICityCardProps {
-  nameCity: string;
   city: ICity;
-  lastEntered: string[];
-  changeLastEntered: (newCity: string) => void;
   changeInCity: () => ICitiesAction;
 }
 
-const CityCard: React.FC<ICityCardProps> = ({
-  city,
-  lastEntered,
-  changeLastEntered,
-  changeInCity,
-}) => {
-  useEffect(() => {
-    if (city && lastEntered.filter((lastEnter: string) => lastEnter === city.name).length < 1) {
-      changeLastEntered(city.name);
-    }
-  });
-
+const CityCard: React.FC<ICityCardProps> = ({ city, changeInCity }) => {
   return city ? (
     <div className="city-card">
       <h2>
@@ -79,13 +65,9 @@ const mapStateToProps = (
   state: IApplicationStore,
   ownProps: {
     nameCity: string;
-    lastEntered: string[];
-    changeLastEntered: (newCity: string) => void;
   }
 ) => ({
   city: state.citiesWeatherToday.cities[ownProps.nameCity],
-  nameCity: ownProps.nameCity,
-  changeLastEntered: ownProps.changeLastEntered,
 });
 
 const mapDispatchToProps = {

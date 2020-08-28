@@ -11,10 +11,7 @@ export interface IApplicationStore {
   forecasts: ForecastStore;
 }
 
-const rootReducer = combineReducers<{
-  citiesWeatherToday: ICitiesTodayWeatherStore;
-  forecasts: ForecastStore;
-}>({
+const rootReducer = combineReducers<IApplicationStore>({
   citiesWeatherToday: citiesReducer,
   forecasts: forecastReducer,
 });

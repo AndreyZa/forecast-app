@@ -8,17 +8,20 @@ export class CitiesActions {
     try {
       const city = await Server.getInstance().getCity(name);
       if (city.data) {
-        dispatch(CitiesActions.addCity(city.data));
+        dispatch(CitiesActions.addCity(city.data, name));
       }
     } catch (_) {
       // error here
     }
   };
 
-  public static addCity(city: ICity): ICitiesAction {
+  public static addCity(city: ICity, name: string): ICitiesAction {
     return {
       type: ADD_CITY,
-      payload: city,
+      payload: {
+        name,
+        city,
+      },
     };
   }
 
