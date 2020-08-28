@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AnyAction, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import CityCard from '../components/CityCard';
-import { ICitiesStore } from '../store/ICitiesStore';
+import { IApplicationStore } from '../store';
 import { CitiesActions } from '../store/CitiesActions';
 import '../styles/Header.css';
 
@@ -71,12 +71,12 @@ const Header: React.FC<IHeaderProps> = ({
 };
 
 const mapStateToProps = (
-  state: ICitiesStore,
+  state: IApplicationStore,
   ownProps: { lastEntered: string[]; changeLastEntered: (newCity: string) => void }
 ) => ({
   ...ownProps,
-  citiesInStore: Object.keys(state.cities),
-  inCity: state.inCity,
+  citiesInStore: Object.keys(state.citiesWeatherToday.cities),
+  inCity: state.citiesWeatherToday.inCity,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

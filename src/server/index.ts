@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { ICity } from '../domain/ICity';
+import { IForecast } from '../domain/IForecast';
 
 // for better handling data
 export interface IReceived {
@@ -7,7 +8,12 @@ export interface IReceived {
 }
 
 export interface IReceivedForecasts {
-  data: 
+  data: {
+    city: {
+      name: string;
+    };
+    list: IForecast[];
+  };
 }
 
 export class Server {
@@ -37,11 +43,18 @@ export class Server {
     }
   }
 
-  public async getForecastForCity(nameCityForForecast: string): Promise<any> {
+  public async getForecastForCity(nameCityForForecast: string): Promise<IReceivedForecasts> {
     try {
       return await axios.get(`${this.apiForecastUrl}&q=${nameCityForForecast}&units=metric`);
     } catch (_) {
-      // error here
+      return {
+        data: {
+          city: {
+            name: '',
+          },
+          list: [],
+        },
+      };
     }
   }
 }

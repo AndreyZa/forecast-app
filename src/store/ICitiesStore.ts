@@ -4,7 +4,7 @@ export type Cities = {
   [key in string]: ICity;
 };
 
-export interface ICitiesStore {
+export interface ICitiesTodayWeatherStore {
   cities: Cities;
   inCity: boolean;
 }

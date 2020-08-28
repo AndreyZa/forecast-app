@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ICity } from '../domain/ICity';
-import { ICitiesStore } from '../store/ICitiesStore';
+import { IApplicationStore } from '../store';
 import { ICitiesAction } from '../store/actions';
 import { CitiesActions } from '../store/CitiesActions';
 import '../styles/CityCard.css';
@@ -76,14 +76,14 @@ const CityCard: React.FC<ICityCardProps> = ({
 };
 
 const mapStateToProps = (
-  state: ICitiesStore,
+  state: IApplicationStore,
   ownProps: {
     nameCity: string;
     lastEntered: string[];
     changeLastEntered: (newCity: string) => void;
   }
 ) => ({
-  city: state.cities[ownProps.nameCity],
+  city: state.citiesWeatherToday.cities[ownProps.nameCity],
   nameCity: ownProps.nameCity,
   changeLastEntered: ownProps.changeLastEntered,
 });

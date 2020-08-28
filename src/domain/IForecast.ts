@@ -1,3 +1,5 @@
+import { Weather } from './ICity';
+
 export interface IForecast {
   clouds: {
     all: number;
@@ -16,4 +18,12 @@ export interface IForecast {
     temp_min: number;
   };
   pop: number;
+  rain: { [key in string]: number };
+  sys: { pod: string };
+  visibility: number;
+  weather: Weather[];
+  wind: {
+    speed: number;
+    deg: number;
+  };
 }

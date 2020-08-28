@@ -1,0 +1,7 @@
+.city-container-list {
+  list-style: none;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

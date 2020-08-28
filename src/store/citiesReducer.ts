@@ -1,7 +1,10 @@
-import { ICitiesStore, initialData } from './ICitiesStore';
+import { ICitiesTodayWeatherStore, initialData } from './ICitiesStore';
 import { ADD_CITY, CHANGE_INCITY, ICitiesAction } from './actions';
 
-export const citiesReducer = (state = initialData, action: ICitiesAction): ICitiesStore => {
+export const citiesReducer = (
+  state = initialData,
+  action: ICitiesAction
+): ICitiesTodayWeatherStore => {
   switch (action.type) {
     case ADD_CITY:
       return {
