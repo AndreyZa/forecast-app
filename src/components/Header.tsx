@@ -55,7 +55,14 @@ const Header: React.FC<IHeaderProps> = ({
     <div>
       <form onSubmit={onSubmitSearch}>
         <InputGroup>
-          <Input type="text" name="city" value={city} autoComplete="off" onChange={onChange} />
+          <Input
+            className="header-input"
+            type="text"
+            name="city"
+            value={city}
+            autoComplete="off"
+            onChange={onChange}
+          />
           <Button color="primary" type="submit">
             Search
           </Button>
