@@ -1,3 +1,8 @@
 .forecast {
   color: #1c1c1c;
 }
+
+.forecast-block {
+  margin-top: 15px;
+  margin-bottom: 65px;
+}

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { Button } from 'reactstrap';
 import CityContainer from '../components/CityContainer';
+import '../styles/City.css';
 
 export const City: React.FC = () => {
   const { cityName } = useParams<{ cityName: string }>();
@@ -10,8 +12,13 @@ export const City: React.FC = () => {
 
   return (
     <div className="page">
-      <button onClick={onBack}>Back</button>
-      City: {cityName} <CityContainer nameCity={cityName} />
+      <div className="top-label-with-btn">
+        <Button color="warning" onClick={onBack}>
+          Back
+        </Button>
+        <h3>{cityName}</h3>
+      </div>
+      <CityContainer nameCity={cityName} />
     </div>
   );
 };

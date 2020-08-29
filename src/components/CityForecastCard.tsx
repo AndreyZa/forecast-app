@@ -1,42 +1,52 @@
 import React from 'react';
-import { IForecast } from '../domain/IForecast';
+import { ListGroup, ListGroupItem } from 'reactstrap';
+import { IViewForecast } from '../components/CityContainer';
 import '../styles/CityForecastCard.css';
 
-export const CityForecastCard: React.FC<IForecast> = ({ dt_txt, weather, main, clouds, wind }) => (
-  <div className="forecast">
-    <h3>{dt_txt}</h3>
-    <img src={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`} />
-    <table>
-      <thead>
-        <tr>
-          <th>Param</th>
-          <th>Value</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Temp</td>
-          <td>
-            {main.temp} &#8451; (Feels like {main.feels_like} &#8451;)
-          </td>
-        </tr>
-        <tr>
-          <td>Pressure</td>
-          <td>{main.pressure} hPa</td>
-        </tr>
-        <tr>
-          <td>Humudity</td>
-          <td>{main.humidity} %</td>
-        </tr>
-        <tr>
-          <td>Clouds</td>
-          <td>{clouds.all}</td>
-        </tr>
-        <tr>
-          <td>Wind</td>
-          <td>{wind.speed} meter / sec</td>
-        </tr>
-      </tbody>
-    </table>
+export interface ICityForecastCardProps {
+  day: string;
+  forecast: IViewForecast[];
+}
+
+export const CityForecastCard: React.FC<ICityForecastCardProps> = ({ day, forecast }) => (
+  <div className="forecast forecast-block">
+    <h3>{day}</h3>
+    <ListGroup horizontal>
+      {forecast
+        .sort((a, b) => {
+          const [dayMounth, mounth] = day.split('.');
+
+          const aDate = new Date(
+            `${new Date().getFullYear()}.${mounth.split('').reverse().join('')}.${dayMounth} ${
+              a.time
+            }`
+          );
+          const bDate = new Date(
+            `${new Date().getFullYear()}.${mounth.split('').reverse().join('')}.${dayMounth} ${
+              b.time
+            }`
+          );
+
+          if (aDate > bDate) {
+            return 1;
+          } else if (aDate < bDate) {
+            return -1;
+          } else {
+            return 0;
+          }
+        })
+        .map((weatherForecast: IViewForecast, index) => (
+          <ListGroupItem key={weatherForecast.description + index}>
+            <div>
+              <h4>{weatherForecast.time}</h4>
+              <img src={`http://openweathermap.org/img/wn/${weatherForecast.icon}@2x.png`} />
+              <div>
+                <h4>{weatherForecast.temp} &#8451;</h4>
+                <span>{weatherForecast.description}</span>
+              </div>
+            </div>
+          </ListGroupItem>
+        ))}
+    </ListGroup>
   </div>
 );
