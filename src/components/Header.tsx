@@ -31,13 +31,15 @@ const Header: React.FC<IHeaderProps> = ({
     setCity(event.target.innerText);
 
   const onSearch = (value: string) => {
-    if (value.trim() && value.length > 2) {
-      if (!citiesInStore.find((cityFromStore: string) => value === cityFromStore)) {
-        fetch(value);
+    const trimmedValue = value.trim();
+
+    if (trimmedValue && trimmedValue.length > 2) {
+      if (!citiesInStore.find((cityFromStore: string) => trimmedValue === cityFromStore)) {
+        fetch(trimmedValue);
       }
     }
-    setCity(value);
-    if (value.trim()) {
+    setCity(trimmedValue);
+    if (trimmedValue && !lastEntered.includes(trimmedValue)) {
       changeLastEntered(value);
     }
   };

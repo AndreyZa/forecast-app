@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Dispatch, AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { IForecast } from '../domain/IForecast';
@@ -21,9 +21,11 @@ export interface IViewForecast {
 }
 
 const CityContainer: React.FC<ICityContainerProps> = ({ nameCity, forecasts, fetchForecasts }) => {
-  const createViewForecastData = () => {
+  // sort forecast for each day (sort by time , from early to late) and solve
+  // problem where time displayed not properly
+  const createSortedByTimeViewForecastData = (receivedForecasts: IForecast[] = []) => {
     const viewsForecasts: { day: string; forecast: IViewForecast[] }[] = [];
-    let currentForecasts = [...forecasts];
+    let currentForecasts = [...receivedForecasts];
 
     while (currentForecasts.length) {
       const date = new Date(currentForecasts[0].dt_txt);
@@ -37,16 +39,23 @@ const CityContainer: React.FC<ICityContainerProps> = ({ nameCity, forecasts, fet
 
       const forecast = {
         day,
-        forecast: currentForecasts.slice(0, 8).map((weatherForecast: IForecast) => {
-          const weatherForecastDate = new Date(weatherForecast.dt_txt);
+        forecast: currentForecasts.slice(0, 8).map(({ dt_txt, weather, main }: IForecast) => {
+          const weatherForecastDate = new Date(dt_txt);
+
+          // looks like 18:00 or 06:00 etc
+          const time = `${convertTimeNumbersToStr(
+            weatherForecastDate.getHours()
+          )}:${convertTimeNumbersToStr(weatherForecastDate.getMinutes())}`;
+
+          const { icon } = weather[0];
+          const description = capitalizeFirstLetter(weather[0].description);
+          const { temp } = main;
 
           return {
-            time: `${convertTimeNumbersToStr(
-              weatherForecastDate.getHours()
-            )}:${convertTimeNumbersToStr(weatherForecastDate.getMinutes())}`,
-            icon: weatherForecast.weather[0].icon,
-            description: capitalizeFirstLetter(weatherForecast.weather[0].description),
-            temp: weatherForecast.main.temp,
+            time,
+            icon,
+            description,
+            temp,
           };
         }),
       };
@@ -60,6 +69,10 @@ const CityContainer: React.FC<ICityContainerProps> = ({ nameCity, forecasts, fet
     return viewsForecasts;
   };
 
+  const sortedByTimeForecasts = useMemo(() => createSortedByTimeViewForecastData(forecasts), [
+    forecasts,
+  ]);
+
   if (!forecasts) {
     fetchForecasts(nameCity);
     return <span>Loading</span>;
@@ -67,7 +80,7 @@ const CityContainer: React.FC<ICityContainerProps> = ({ nameCity, forecasts, fet
 
   return (
     <div>
-      {createViewForecastData().map(
+      {sortedByTimeForecasts.map(
         (viewForecast: { day: string; forecast: IViewForecast[] }, index: number) => (
           <CityForecastCard key={index + viewForecast.day} {...viewForecast} />
         )

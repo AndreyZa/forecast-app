@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Card, CardText, CardBody, CardLink, CardTitle, CardSubtitle, Table } from 'reactstrap';
+import { Card, CardText, CardBody, CardTitle, CardSubtitle, Table } from 'reactstrap';
 import { ICity } from '../domain/ICity';
 import { IApplicationStore } from '../store';
 import '../styles/CityCard.css';
@@ -26,35 +26,31 @@ const CityCard: React.FC<ICityCardProps> = ({ city }) => {
             {city.weather[0].description.charAt(0).toUpperCase() +
               city.weather[0].description.slice(1)}
           </CardText>
-          <CardText>
-            <Table>
-              <tbody>
-                <tr>
-                  <td>Pressure</td>
-                  <td>{city.main.pressure} hPa</td>
-                </tr>
-                <tr>
-                  <td>Humidity</td>
-                  <td>{city.main.humidity} %</td>
-                </tr>
-                <tr>
-                  <td>Wind Speed</td>
-                  <td>{city.wind.speed} meter / sec</td>
-                </tr>
-                <tr>
-                  <td>Max temp</td>
-                  <td>{city.main.temp_max} &#8451;</td>
-                </tr>
-                <tr>
-                  <td>Min temp</td>
-                  <td>{city.main.temp_min} &#8451;</td>
-                </tr>
-              </tbody>
-            </Table>
-          </CardText>
-          <CardLink>
-            <Link to={`/city/${city.name}`}>{city.name}</Link>
-          </CardLink>
+          <Table>
+            <tbody>
+              <tr>
+                <td>Pressure</td>
+                <td>{city.main.pressure} hPa</td>
+              </tr>
+              <tr>
+                <td>Humidity</td>
+                <td>{city.main.humidity} %</td>
+              </tr>
+              <tr>
+                <td>Wind Speed</td>
+                <td>{city.wind.speed} meter / sec</td>
+              </tr>
+              <tr>
+                <td>Max temp</td>
+                <td>{city.main.temp_max} &#8451;</td>
+              </tr>
+              <tr>
+                <td>Min temp</td>
+                <td>{city.main.temp_min} &#8451;</td>
+              </tr>
+            </tbody>
+          </Table>
+          <Link to={`/city/${city.name}`}>{city.name}</Link>
         </CardBody>
       </Card>
     </div>
